@@ -95,5 +95,7 @@
    "steps_per_print": 1,
    "keep-last-n-checkpoints": 1000,
    "wall_clock_breakdown": true,
+   "launcher": "slurm",
+   "deepspeed_slurm": true,
 
 }
