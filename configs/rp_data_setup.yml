@@ -1,6 +1,80 @@
 # Suggested data paths when using GPT-NeoX locally
 {
-  "data_path": "data/mydataset_text_document",
+  # "data_path": "data/mydataset_text_document",
+  "train-data-paths": [
+      "/var/cr01_data/tokenized_data/arxiv/arxiv_tokenized_text_document",
+      "/var/cr01_data/tokenized_data/book/book_tokenized_text_document",
+      "/var/cr01_data/tokenized_data/c4/c4_tokenized_text_document",
+      "/var/cr01_data/tokenized_data/cc/2019-30/tokenized_text_document",
+      "/var/cr01_data/tokenized_data/cc/2020-05/tokenized_text_document",
+      "/var/cr01_data/tokenized_data/cc/2021-04/tokenized_text_document",
+      "/var/cr01_data/tokenized_data/cc/2022-05/tokenized_text_document",
+      "/var/cr01_data/tokenized_data/cc/2023-06/tokenized_text_document",
+      "/var/cr01_data/tokenized_data/github_md/tokenized_text_document",
+      "/var/cr01_data/tokenized_data/github_no_md/tokenized_text_document",
+      "/var/cr01_data/tokenized_data/stackexchange/tokenized_text_document",
+      "/var/cr01_data/tokenized_data/wikipedia/wiki_full_tokenized_text_document",
+  ],
+  "train-data-weights": [
+      0.052, 
+      0.03,
+      0.460,
+      0.05, 0.05, 0.05, 0.05,
+      0.1,
+      0.035,
+      0.014,
+      0.04
+  ],
+  
+  "test-data-paths": [
+      "/var/cr01_data/tokenized_data/arxiv/arxiv_tokenized_text_document",
+      "/var/cr01_data/tokenized_data/book/book_tokenized_text_document",
+      "/var/cr01_data/tokenized_data/c4/c4_tokenized_text_document",
+      "/var/cr01_data/tokenized_data/cc/2019-30/tokenized_text_document",
+      "/var/cr01_data/tokenized_data/cc/2020-05/tokenized_text_document",
+      "/var/cr01_data/tokenized_data/cc/2021-04/tokenized_text_document",
+      "/var/cr01_data/tokenized_data/cc/2022-05/tokenized_text_document",
+      "/var/cr01_data/tokenized_data/cc/2023-06/tokenized_text_document",
+      "/var/cr01_data/tokenized_data/github_md/tokenized_text_document",
+      "/var/cr01_data/tokenized_data/github_no_md/tokenized_text_document",
+      "/var/cr01_data/tokenized_data/stackexchange/tokenized_text_document",
+      "/var/cr01_data/tokenized_data/wikipedia/wiki_full_tokenized_text_document",
+  ],
+  "test-data-weights": [
+      0.052, 
+      0.03,
+      0.460,
+      0.05, 0.05, 0.05, 0.05,
+      0.1,
+      0.035,
+      0.014,
+      0.04
+  ],
+  
+  "valid-data-paths": [
+      "/var/cr01_data/tokenized_data/arxiv/arxiv_tokenized_text_document",
+      "/var/cr01_data/tokenized_data/book/book_tokenized_text_document",
+      "/var/cr01_data/tokenized_data/c4/c4_tokenized_text_document",
+      "/var/cr01_data/tokenized_data/cc/2019-30/tokenized_text_document",
+      "/var/cr01_data/tokenized_data/cc/2020-05/tokenized_text_document",
+      "/var/cr01_data/tokenized_data/cc/2021-04/tokenized_text_document",
+      "/var/cr01_data/tokenized_data/cc/2022-05/tokenized_text_document",
+      "/var/cr01_data/tokenized_data/cc/2023-06/tokenized_text_document",
+      "/var/cr01_data/tokenized_data/github_md/tokenized_text_document",
+      "/var/cr01_data/tokenized_data/github_no_md/tokenized_text_document",
+      "/var/cr01_data/tokenized_data/stackexchange/tokenized_text_document",
+      "/var/cr01_data/tokenized_data/wikipedia/wiki_full_tokenized_text_document",
+  ],
+  "valid-data-weights": [
+      0.052, 
+      0.03,
+      0.460,
+      0.05, 0.05, 0.05, 0.05,
+      0.1,
+      0.035,
+      0.014,
+      0.04
+  ],
 
   # or for weighted datasets:
   # "train-data-paths": ["data/enwik8/enwik8_text_document", "data/enwik8/enwik8_text_document"],
@@ -23,7 +97,7 @@
 
   "tensorboard_dir": "tensorboard",
   "log_dir": "logs",
-  "use_wandb": True,
+  "use_wandb": true,
   "wandb_host": "https://api.wandb.ai",
   "wandb_team": "asdfffjj",
   "wandb_project": "neox"
