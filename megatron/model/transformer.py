@@ -526,9 +526,10 @@ class ParallelSelfAttention(nn.Module):
             else:
                 # full rotary
                 query_rot, key_rot = query_layer, key_layer
-            apply_rotary_fn = (
-                apply_rotary_pos_emb_torch if self.bf16 else apply_rotary_pos_emb
-            )
+            # apply_rotary_fn = (
+            #     apply_rotary_pos_emb_torch if self.bf16 else apply_rotary_pos_emb
+            # )
+            apply_rotary_fn = apply_rotary_pos_emb_torch
 
             seq_len = key_layer.shape[0]
             offset = 0

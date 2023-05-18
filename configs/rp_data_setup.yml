@@ -19,9 +19,7 @@
   "vocab_file": "RP_tokenizer/tokenizer.json",
   # "merge_file": "RP-tokenizer/tokenizer.json",
 
-  "save": "checkpoints",
-  "load": "checkpoints",
-  "checkpoint_validation_with_forward_pass": False,
+  "checkpoint_validation_with_forward_pass": false,
 
   "tensorboard_dir": "tensorboard",
   "log_dir": "logs",
