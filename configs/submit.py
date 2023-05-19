@@ -48,7 +48,7 @@ fi
 mamba activate neox
 git pull
 
-python ./deepy.py train.py  /var/cr01_data/gpt-neox-jue/configs/rp_7b_512_nodes_continue.yml /var/cr01_data/gpt-neox-jue/configs/rp_data_setup.yml
+python ./deepy.py train.py  /var/cr01_data/gpt-neox-jue/configs/rp_7b_512_nodes_continue.yml /var/cr01_data/gpt-neox-jue/configs/rp_data_setup_test.yml
 
 '''
 
@@ -64,4 +64,4 @@ if __name__ == '__main__':
     for i in range(node_size):
         os.system('sbatch configs/train_to_submit.slurm.sh')
         if i in [0, 1]:
-            time.sleep(10)
+            time.sleep(2)
