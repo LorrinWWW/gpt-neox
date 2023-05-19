@@ -489,6 +489,7 @@ class NeoXArgs(*BASE_CLASSES):
             )
 
         if "MASTER_ADDR" in os.environ:
+            print('MMMMAAAAASSSSTTTT:', os.environ["MASTER_ADDR"])
             args_list.extend(
                 self.convert_key_value_to_command_line_arg(
                     "master_addr", os.environ["MASTER_ADDR"]
