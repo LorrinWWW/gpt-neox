@@ -8,6 +8,7 @@ template = '''#!/bin/bash
 #SBATCH --output=/var/cr01_data/logs/slurm_%j.log
 #SBATCH --nodes=1
 #SBATCH -n 1
+#SBATCH --exclusive
 #SBATCH --chdir=/var/cr01_data/gpt-neox-jue
 
 nvidia-smi
@@ -19,7 +20,6 @@ export CUDA_HOME=/usr/local/cuda-11.6
 export GPUS_PER_NODE=8
 export WORLD_SIZE=256
 export MASTER_PORT=9901
-#srun echo $MASTER_ADDR
 
 netif=enp12s0
 export GLOO_SOCKET_IFNAME=${netif}
