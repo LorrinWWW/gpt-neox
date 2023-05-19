@@ -165,7 +165,8 @@ class NeoXArgs(*BASE_CLASSES):
 
         self.enable_logging()
         
-        if self.deepspeed_http:
+        # if self.deepspeed_http:
+        if True:
             init_coordinator_client()
             coord_client = get_coordinator_client()
             res = coord_client.notify_inference_join(os.environ['NCCL_SOCKET_IFNAME'])
@@ -805,7 +806,6 @@ class NeoXArgs(*BASE_CLASSES):
         # number of gpus
         # Get number of GPUs param or hostfile to determine train_batch_size
         global_num_gpus = getattr(self, "global_num_gpus", None)
-        print('$$$$', global_num_gpus)
         if global_num_gpus is None:
             if self.hostfile is not None or os.path.exists(DLTS_HOSTFILE):
                 hostfile_path = self.hostfile or DLTS_HOSTFILE
@@ -840,7 +840,6 @@ class NeoXArgs(*BASE_CLASSES):
 
         # pp_size and mp_size are only used here to compute dp world size and nowhere else.
         dp_world_size = (global_num_gpus / pp_size) / mp_size
-        # print('!!!!!!', global_num_gpus, dp_world_size, pp_size, mp_size)
         if not (dp_world_size % 1 == 0):
             error_message = (
                 self.__class__.__name__
