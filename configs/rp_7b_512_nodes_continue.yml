@@ -41,7 +41,7 @@
    "min_lr": 0.000012,
    # for all zero_optimization options, see https://www.deepspeed.ai/docs/config-json/#zero-optimizations-for-fp16-training
    "zero_optimization": {
-    "stage": 0,
+    "stage": 1,
     "allgather_partitions": true,
     "allgather_bucket_size": 500000000,
     "overlap_comm": true,
