@@ -189,6 +189,8 @@ class NeoXArgs(*BASE_CLASSES):
             # os.environ["WORLD_SIZE"] = 
             
             self.global_num_gpus = int(os.environ['WORLD_SIZE'])
+            self.num_nodes = self.global_num_gpus // int(os.environ['GPUS_PER_NODE'])
+            
         # print('%%%%%%%%%%%%', torch.zeros(1).cuda())
 
         self.calculate_derived()
@@ -527,6 +529,8 @@ class NeoXArgs(*BASE_CLASSES):
             if key == "autotuning_run":
                 continue
             configured_value = getattr(self, key)
+            if key == "no_ssh_check" and self.deepspeed_http:
+                configured_value = True
             if configured_value != default_value:
                 args_list.extend(
                     self.convert_key_value_to_command_line_arg(key, configured_value)
@@ -728,10 +732,6 @@ class NeoXArgs(*BASE_CLASSES):
             os.environ["LOCAL_RANK"] = os.environ["SLURM_LOCALID"]
             os.environ["RANK"] = os.environ["SLURM_PROCID"]
             os.environ["WORLD_SIZE"] = os.environ["SLURM_NTASKS"]
-            print('==========================')
-            print(os.environ["SLURM_LOCALID"], os.environ["SLURM_PROCID"], os.environ["SLURM_NTASKS"])
-            print('==========================')
-            
 
         self.update_value("local_rank", int(os.getenv("LOCAL_RANK", "0")))
         self.update_value("rank", int(os.getenv("RANK", "0")))

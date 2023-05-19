@@ -12,3 +12,4 @@ sentencepiece
 six
 tokenizers>=0.12.1
 transformers>=4.24.0
+netifaces

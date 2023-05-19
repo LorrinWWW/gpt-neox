@@ -1,7 +1,7 @@
 # GPT-2 pretraining setup
 {
-   "load": "/var/cr01_data/RP_7B_CKPTS",
-   "save": "/var/cr01_data/RP_7B_NEW_CKPTS",
+   "load": "RP_models",
+   "save": "RP_models_new",
    "finetune": true,
    # parallelism settings ( you will want to change these based on your cluster setup, ideally scheduling pipeline stages
    # across the node boundaries )
@@ -96,5 +96,6 @@
    "keep-last-n-checkpoints": 1000,
    "wall_clock_breakdown": true,
    "deepspeed_http": true,
+   "hostfile": "hostfile",
 
 }
