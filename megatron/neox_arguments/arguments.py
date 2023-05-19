@@ -751,6 +751,7 @@ class NeoXArgs(*BASE_CLASSES):
     def calculate_batch_parameters(
         dp_world_size, train_batch=None, micro_batch=None, grad_acc=None
     ):
+        print('@@@@@@@@@@', dp_world_size, train_batch, micro_batch, grad_acc)
         # all values are provided nothing needs to be set
         if train_batch is not None and micro_batch is not None and grad_acc is not None:
             return train_batch, micro_batch, grad_acc
