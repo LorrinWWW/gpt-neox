@@ -527,6 +527,8 @@ class NeoXArgs(*BASE_CLASSES):
             
             os.environ["LOCAL_RANK"] = str(int(rank) % int(os.environ['GPUS_PER_NODE']))
             os.environ["RANK"] = str(rank)
+            
+            print(f"RANK: {rank}, LOCAL_RANK: {str(int(rank) % int(os.environ['GPUS_PER_NODE']))}, WORLD_SIZE: {os.environ['WORLD_SIZE']}")
             # os.environ["WORLD_SIZE"] = 
 
         if "DLTS_HOSTFILE" in os.environ:
