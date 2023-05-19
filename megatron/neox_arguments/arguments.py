@@ -666,6 +666,12 @@ class NeoXArgs(*BASE_CLASSES):
             os.environ["LOCAL_RANK"] = os.environ["SLURM_LOCALID"]
             os.environ["RANK"] = os.environ["SLURM_PROCID"]
             os.environ["WORLD_SIZE"] = os.environ["SLURM_NTASKS"]
+            print('==========================')
+            print(os.environ["SLURM_LOCALID"])
+            print(os.environ["SLURM_PROCID"])
+            print(os.environ["SLURM_NTASKS"])
+            print('==========================')
+            
 
         self.update_value("local_rank", int(os.getenv("LOCAL_RANK", "0")))
         self.update_value("rank", int(os.getenv("RANK", "0")))
