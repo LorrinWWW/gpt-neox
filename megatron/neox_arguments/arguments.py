@@ -190,7 +190,7 @@ class NeoXArgs(*BASE_CLASSES):
             # os.environ["WORLD_SIZE"] = 
             
             self.global_num_gpus = int(os.environ['WORLD_SIZE'])
-            self.num_nodes = self.global_num_gpus // int(os.environ['GPUS_PER_NODE'])
+            # self.num_nodes = self.global_num_gpus // int(os.environ['GPUS_PER_NODE'])
             
         # print('%%%%%%%%%%%%', torch.zeros(1).cuda())
 
