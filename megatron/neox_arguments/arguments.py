@@ -173,7 +173,7 @@ class NeoXArgs(*BASE_CLASSES):
             res = coord_client.notify_inference_join(os.environ['NCCL_SOCKET_IFNAME'])
             prime_ip = res['prime_ip']
             rank = res['rank']
-            local_rank = res['local_rank']
+            local_rank = res['local_rank'] - 1 # TODO: tricky, the first is master
             port = res['nccl_port']
             
             os.environ["LOCAL_RANK"] = str(local_rank)
