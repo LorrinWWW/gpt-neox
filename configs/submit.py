@@ -6,8 +6,8 @@ template = '''#!/bin/bash
 #SBATCH --job-name=bzs_4m_lr_4e5
 #SBATCH --time=999:59:00
 #SBATCH --output=/var/cr01_data/logs/slurm_%j.log
-#SBATCH --nodes=32
-#SBATCH -n 32
+#SBATCH --nodes=1
+#SBATCH -n 1
 #SBATCH --chdir=/var/cr01_data/gpt-neox-jue
 
 nvidia-smi
