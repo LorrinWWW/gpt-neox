@@ -167,26 +167,26 @@ class NeoXArgs(*BASE_CLASSES):
         self.enable_logging()
         
         # if self.deepspeed_http:
-#         if True:
-#             init_coordinator_client()
-#             coord_client = get_coordinator_client()
-#             res = coord_client.notify_inference_join(os.environ['NCCL_SOCKET_IFNAME'])
-#             prime_ip = res['prime_ip']
-#             rank = res['rank']
-#             local_rank = res['local_rank'] # TODO: tricky, the first is master
-#             if local_rank == 8:
-#                 local_rank = 0
-#             port = res['nccl_port']
+        if True:
+            init_coordinator_client()
+            coord_client = get_coordinator_client()
+            res = coord_client.notify_inference_join(os.environ['NCCL_SOCKET_IFNAME'])
+            prime_ip = res['prime_ip']
+            rank = res['rank'] - 1
+            local_rank = res['local_rank'] - 1 # TODO: tricky, the first is master
+            # if local_rank == 8:
+            #     local_rank = 0
+            port = res['nccl_port']
             
-#             os.environ["LOCAL_RANK"] = str(local_rank)
-#             os.environ["RANK"] = str(rank)
-#             os.environ['WORLD_SIZE'] = "256"
+            os.environ["LOCAL_RANK"] = str(local_rank)
+            os.environ["RANK"] = str(rank)
+            os.environ['WORLD_SIZE'] = "8"
             
-#             print(f"RANK: {rank}, LOCAL_RANK: {local_rank}, WORLD_SIZE: {os.environ['WORLD_SIZE']}")
-#             # os.environ["WORLD_SIZE"] = 
+            print(f"RANK: {rank}, LOCAL_RANK: {local_rank}, WORLD_SIZE: {os.environ['WORLD_SIZE']}")
+            # os.environ["WORLD_SIZE"] = 
             
-#             self.global_num_gpus = int(os.environ['WORLD_SIZE'])
-        print('%%%%%%%%%%%%', torch.zeros(1).cuda())
+            self.global_num_gpus = int(os.environ['WORLD_SIZE'])
+        # print('%%%%%%%%%%%%', torch.zeros(1).cuda())
 
         self.calculate_derived()
 
