@@ -21,6 +21,7 @@
    "output_layer_parallelism": "column",
 
    # these should provide some speedup but takes a while to build, set to true if desired
+   "attention_config": [[["flash"], 32]],
    "scaled-upper-triang-masked-softmax-fusion": true,
    "bias-gelu-fusion": true,
 
