@@ -183,8 +183,9 @@ class NeoXArgs(*BASE_CLASSES):
             os.environ["LOCAL_RANK"] = str(local_rank)
             os.environ["RANK"] = str(rank)
             os.environ['WORLD_SIZE'] = "16"
+            os.environ['MASTER_ADDR'] = prime_ip
             
-            print(f"RANK: {rank}, LOCAL_RANK: {local_rank}, WORLD_SIZE: {os.environ['WORLD_SIZE']}")
+            print(f"RANK: {rank}, LOCAL_RANK: {local_rank}, WORLD_SIZE: {os.environ['WORLD_SIZE']}, PIP： {prime_ip}")
             # os.environ["WORLD_SIZE"] = 
             
             self.global_num_gpus = int(os.environ['WORLD_SIZE'])
