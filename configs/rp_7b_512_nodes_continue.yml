@@ -1,12 +1,12 @@
 # GPT-2 pretraining setup
 {
-   "load": "/var/cr01_data/RP_7B_CKPTS",
+   # "load": "/var/cr01_data/RP_7B_CKPTS",
    "save": "/var/cr01_data/RP_7B_NEW_CKPTS",
    "finetune": true,
    # parallelism settings ( you will want to change these based on your cluster setup, ideally scheduling pipeline stages
    # across the node boundaries )
    "pipe-parallel-size": 1,
-   "model-parallel-size": 2, # one copy of the model per node
+   "model-parallel-size": 8, # one copy of the model per node
 
    # model settings
    "num-layers": 32,
@@ -52,7 +52,7 @@
 
    # batch / data settings
    # "train_batch_size": 2048, # across 1024 nodes... fingers crossed
-   "train_micro_batch_size_per_gpu": 16,
+   "train_micro_batch_size_per_gpu": 64,
   #  "gradient_accumulation_steps": 2,
    "gradient_accumulation_steps": 1, 
    "data-impl": "mmap",
