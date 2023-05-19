@@ -183,7 +183,7 @@ class NeoXArgs(*BASE_CLASSES):
             
             os.environ["LOCAL_RANK"] = str(local_rank)
             os.environ["RANK"] = str(rank)
-            os.environ['WORLD_SIZE'] = "256"
+            os.environ['WORLD_SIZE'] = "32"
             os.environ['MASTER_ADDR'] = prime_ip
             
             print(f"RANK: {rank}, LOCAL_RANK: {local_rank}, WORLD_SIZE: {os.environ['WORLD_SIZE']}, PIP： {prime_ip}")
