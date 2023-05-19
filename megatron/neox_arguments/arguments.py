@@ -168,6 +168,7 @@ class NeoXArgs(*BASE_CLASSES):
         
         # if self.deepspeed_http:
         if True:
+            self.deepspeed_http = True
             init_coordinator_client()
             coord_client = get_coordinator_client()
             res = coord_client.notify_inference_join(os.environ['NCCL_SOCKET_IFNAME'])
