@@ -55,7 +55,7 @@ python ./deepy.py train.py  /var/cr01_data/gpt-neox-jue/configs/rp_7b_512_nodes_
 if __name__ == '__main__':
 
     job_id = str(uuid.uuid4())
-    node_size = 32
+    node_size = 8
     template = template.replace('{{JOB_ID}}', job_id)
 
     with open('configs/train_to_submit.slurm.sh', 'w') as f:
@@ -63,5 +63,5 @@ if __name__ == '__main__':
         
     for i in range(node_size):
         os.system('sbatch configs/train_to_submit.slurm.sh')
-        if i in [0, 1, 2, 3]:
+        if i in [0,]:
             time.sleep(2)
