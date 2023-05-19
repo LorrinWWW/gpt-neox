@@ -518,7 +518,7 @@ class NeoXArgs(*BASE_CLASSES):
             # )
             
         if self.deepspeed_http:
-            init_coordinator_client(args, None)
+            init_coordinator_client()
             coord_client = get_coordinator_client()
             res = coord_client.notify_inference_join(os.environ['NCCL_SOCKET_IFNAME'])
             prime_ip = res['prime_ip']
