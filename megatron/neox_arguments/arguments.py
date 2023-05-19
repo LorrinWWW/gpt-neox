@@ -525,8 +525,8 @@ class NeoXArgs(*BASE_CLASSES):
             rank = res['rank']
             port = res['nccl_port']
             
-            os.environ["LOCAL_RANK"] = rank % int(os.environ['GPUS_PER_NODE'])
-            os.environ["RANK"] = rank
+            os.environ["LOCAL_RANK"] = str(int(rank) % int(os.environ['GPUS_PER_NODE']))
+            os.environ["RANK"] = str(rank)
             # os.environ["WORLD_SIZE"] = 
 
         if "DLTS_HOSTFILE" in os.environ:
