@@ -861,6 +861,7 @@ class NeoXArgs(*BASE_CLASSES):
             raise AssertionError(error_message)
 
             # Automatically derive train_batch_size = train_micro_batch_size_per_gpu*global_num_gpus*gradient_accumulation_steps
+        print('#####', dp_world_size, self.train_batch_size, self.train_micro_batch_size_per_gpu, self.gradient_accumulation_steps)
         (
             train_batch_size,
             train_micro_batch_size_per_gpu,
