@@ -120,6 +120,7 @@ def define_nccl_port_by_job_id(job_id: int):
 class CoordinatorInferenceHTTPClient:
     def __init__(self) -> None:
         self.job_id = os.environ['JOB_ID']
+        self.n_gpu_per_node = os.environ['GPUS_PER_NODE']
 
     def notify_inference_heartbeat(self):
         pass
@@ -127,7 +128,7 @@ class CoordinatorInferenceHTTPClient:
     def notify_inference_join(self, netname='access'):
         ip = ni.ifaddresses(netname)[ni.AF_INET][0]['addr']
         return requests.post("http://173.82.206.98:5000/rank/"+str(self.job_id),
-                             json={"ip": ip}).json()
+                             json={"ip": ip, "n_gpu_per_node": self.n_gpu_per_node}).json()
 
 
 def get_coordinator_client() -> CoordinatorInferenceHTTPClient:
@@ -172,14 +173,14 @@ class NeoXArgs(*BASE_CLASSES):
             res = coord_client.notify_inference_join(os.environ['NCCL_SOCKET_IFNAME'])
             prime_ip = res['prime_ip']
             rank = res['rank']
-            # local_rank = res['local_rank']
+            local_rank = res['local_rank']
             port = res['nccl_port']
             
-            os.environ["LOCAL_RANK"] = str(int(rank) % int(os.environ['GPUS_PER_NODE']))
+            os.environ["LOCAL_RANK"] = str(local_rank)
             os.environ["RANK"] = str(rank)
             os.environ['WORLD_SIZE'] = "256"
             
-            print(f"RANK: {rank}, LOCAL_RANK: {str(int(rank) % int(os.environ['GPUS_PER_NODE']))}, WORLD_SIZE: {os.environ['WORLD_SIZE']}")
+            print(f"RANK: {rank}, LOCAL_RANK: {local_rank}, WORLD_SIZE: {os.environ['WORLD_SIZE']}")
             # os.environ["WORLD_SIZE"] = 
             
             self.global_num_gpus = int(os.environ['WORLD_SIZE'])
