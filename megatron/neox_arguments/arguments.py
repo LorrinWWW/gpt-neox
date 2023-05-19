@@ -839,6 +839,7 @@ class NeoXArgs(*BASE_CLASSES):
 
         # pp_size and mp_size are only used here to compute dp world size and nowhere else.
         dp_world_size = (global_num_gpus / pp_size) / mp_size
+        print('!!!!!!', global_num_gpus, dp_world_size, pp_size, mp_size)
         if not (dp_world_size % 1 == 0):
             error_message = (
                 self.__class__.__name__
