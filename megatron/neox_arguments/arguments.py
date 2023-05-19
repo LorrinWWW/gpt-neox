@@ -172,13 +172,14 @@ class NeoXArgs(*BASE_CLASSES):
             res = coord_client.notify_inference_join(os.environ['NCCL_SOCKET_IFNAME'])
             prime_ip = res['prime_ip']
             rank = res['rank']
+            local_rank = res['local_rank']
             port = res['nccl_port']
             
-            os.environ["LOCAL_RANK"] = str(int(rank) % int(os.environ['GPUS_PER_NODE']))
+            os.environ["LOCAL_RANK"] = str(local_rank)
             os.environ["RANK"] = str(rank)
             os.environ['WORLD_SIZE'] = "256"
             
-            print(f"RANK: {rank}, LOCAL_RANK: {str(int(rank) % int(os.environ['GPUS_PER_NODE']))}, WORLD_SIZE: {os.environ['WORLD_SIZE']}")
+            print(f"RANK: {rank}, LOCAL_RANK: {local_rank}, WORLD_SIZE: {os.environ['WORLD_SIZE']}")
             # os.environ["WORLD_SIZE"] = 
             
             self.global_num_gpus = int(os.environ['WORLD_SIZE'])
