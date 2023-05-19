@@ -848,6 +848,8 @@ class NeoXArgs(*BASE_CLASSES):
         mp_size = self.model_parallel_size
         mp_size = mp_size if mp_size >= 1 else 1
         self.update_value("model_parallel_size", mp_size)
+        
+        print("$$$$", dp_world_size, global_num_gpus, pp_size, mp_size)
 
         # pp_size and mp_size are only used here to compute dp world size and nowhere else.
         dp_world_size = (global_num_gpus / pp_size) / mp_size
