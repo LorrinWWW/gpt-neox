@@ -2,7 +2,7 @@
 {
    # "load": "/var/cr01_data/RP_7B_CKPTS",
    "save": "/var/cr01_data/RP_7B_NEW_CKPTS",
-   "finetune": true,
+   # "finetune": true,
    # parallelism settings ( you will want to change these based on your cluster setup, ideally scheduling pipeline stages
    # across the node boundaries )
    "pipe-parallel-size": 1,
