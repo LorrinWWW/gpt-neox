@@ -611,6 +611,11 @@ class NeoXArgsOther(NeoXArgsTemplate):
     """
     Run via SLURM, this will attempt to discover the necessary variables to initialize torch distributed from the SLURM environment
     """
+    
+    deepspeed_http: bool = False
+    """
+    Run via Simple HTTP Server
+    """
 
     deepspeed_jsrun: bool = False
     """
