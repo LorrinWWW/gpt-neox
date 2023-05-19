@@ -48,7 +48,7 @@ fi
 mamba activate neox
 git pull
 
-python ./deepy.py train.py  /var/cr01_data/gpt-neox-jue/configs/rp_7b_512_nodes_continue.yml /var/cr01_data/gpt-neox-jue/configs/rp_data_setup_test.yml
+python ./deepy.py train.py  /var/cr01_data/gpt-neox-jue/configs/rp_7b_512_nodes_continue.yml /var/cr01_data/gpt-neox-jue/configs/rp_data_setup.yml
 
 '''
 
