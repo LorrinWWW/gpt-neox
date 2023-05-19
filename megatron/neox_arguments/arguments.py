@@ -164,6 +164,22 @@ class NeoXArgs(*BASE_CLASSES):
             )
 
         self.enable_logging()
+        
+        if self.deepspeed_http:
+            init_coordinator_client()
+            coord_client = get_coordinator_client()
+            res = coord_client.notify_inference_join(os.environ['NCCL_SOCKET_IFNAME'])
+            prime_ip = res['prime_ip']
+            rank = res['rank']
+            port = res['nccl_port']
+            
+            os.environ["LOCAL_RANK"] = str(int(rank) % int(os.environ['GPUS_PER_NODE']))
+            os.environ["RANK"] = str(rank)
+            
+            print(f"RANK: {rank}, LOCAL_RANK: {str(int(rank) % int(os.environ['GPUS_PER_NODE']))}, WORLD_SIZE: {os.environ['WORLD_SIZE']}")
+            # os.environ["WORLD_SIZE"] = 
+            
+            self.global_num_gpus = int(os.environ['WORLD_SIZE'])
 
         self.calculate_derived()
 
@@ -516,20 +532,6 @@ class NeoXArgs(*BASE_CLASSES):
             # args_list.extend(
             #    self.convert_key_value_to_command_line_arg('master_addr', master_address)
             # )
-            
-        if self.deepspeed_http:
-            init_coordinator_client()
-            coord_client = get_coordinator_client()
-            res = coord_client.notify_inference_join(os.environ['NCCL_SOCKET_IFNAME'])
-            prime_ip = res['prime_ip']
-            rank = res['rank']
-            port = res['nccl_port']
-            
-            os.environ["LOCAL_RANK"] = str(int(rank) % int(os.environ['GPUS_PER_NODE']))
-            os.environ["RANK"] = str(rank)
-            
-            print(f"RANK: {rank}, LOCAL_RANK: {str(int(rank) % int(os.environ['GPUS_PER_NODE']))}, WORLD_SIZE: {os.environ['WORLD_SIZE']}")
-            # os.environ["WORLD_SIZE"] = 
 
         if "DLTS_HOSTFILE" in os.environ:
             args_list.extend(
