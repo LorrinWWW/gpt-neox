@@ -7,7 +7,6 @@ template = '''#!/bin/bash
 #SBATCH --time=999:59:00
 #SBATCH --output=/var/cr01_data/logs/slurm_%j.log
 #SBATCH --nodes=1
-#SBATCH -n 1
 #SBATCH --exclusive
 #SBATCH --chdir=/var/cr01_data/gpt-neox-jue
 
@@ -64,4 +63,4 @@ if __name__ == '__main__':
         
     for i in range(node_size):
         os.system('sbatch configs/train_to_submit.slurm.sh')
-        time.sleep(10)
+        # time.sleep(10)
