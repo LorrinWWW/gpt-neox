@@ -846,7 +846,6 @@ class NeoXArgs(*BASE_CLASSES):
         pp_size = self.pipe_parallel_size
         pp_size = pp_size if pp_size >= 1 else 1
         mp_size = self.model_parallel_size
-        mp_size = 8
         mp_size = mp_size if mp_size >= 1 else 1
         self.update_value("model_parallel_size", mp_size)
         
