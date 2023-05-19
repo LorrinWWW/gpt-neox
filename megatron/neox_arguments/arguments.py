@@ -102,6 +102,42 @@ NEOX_ARG_CLASSES = [i for i in BASE_CLASSES if i not in DEEPSPEED_ARG_CLASSES]
 
 if "DLTS_HOSTFILE" in os.environ:
     DLTS_HOSTFILE = os.environ["DLTS_HOSTFILE"]
+    
+    
+import json
+import argparse
+import os
+import netifaces as ni
+import requests
+import time
+
+_COORDINATOR_CLIENT = None
+
+
+def define_nccl_port_by_job_id(job_id: int):
+    return 10000 + job_id % 3571  # make sure different job use different port
+
+class CoordinatorInferenceHTTPClient:
+    def __init__(self) -> None:
+        self.job_id = os.environ['JOB_ID']
+
+    def notify_inference_heartbeat(self):
+        pass
+
+    def notify_inference_join(self, netname='access'):
+        ip = ni.ifaddresses(netname)[ni.AF_INET][0]['addr']
+        return requests.post("http://173.82.206.98:5000/rank/"+str(self.job_id),
+                             json={"ip": ip}).json()
+
+
+def get_coordinator_client() -> CoordinatorInferenceHTTPClient:
+    assert _COORDINATOR_CLIENT is not None
+    return _COORDINATOR_CLIENT
+
+
+def init_coordinator_client():
+    global _COORDINATOR_CLIENT
+    _COORDINATOR_CLIENT = CoordinatorInferenceHTTPClient()
 
 
 @dataclass
@@ -480,6 +516,18 @@ class NeoXArgs(*BASE_CLASSES):
             # args_list.extend(
             #    self.convert_key_value_to_command_line_arg('master_addr', master_address)
             # )
+            
+        if self.deepspeed_http:
+            init_coordinator_client(args, None)
+            coord_client = get_coordinator_client()
+            res = coord_client.notify_inference_join(os.environ['NCCL_SOCKET_IFNAME'])
+            prime_ip = res['prime_ip']
+            rank = res['rank']
+            port = res['nccl_port']
+            
+            os.environ["LOCAL_RANK"] = rank % int(os.environ['GPUS_PER_NODE'])
+            os.environ["RANK"] = rank
+            # os.environ["WORLD_SIZE"] = 
 
         if "DLTS_HOSTFILE" in os.environ:
             args_list.extend(
@@ -489,7 +537,6 @@ class NeoXArgs(*BASE_CLASSES):
             )
 
         if "MASTER_ADDR" in os.environ:
-            print('MMMMAAAAASSSSTTTT:', os.environ["MASTER_ADDR"])
             args_list.extend(
                 self.convert_key_value_to_command_line_arg(
                     "master_addr", os.environ["MASTER_ADDR"]
