@@ -5,8 +5,8 @@
    "finetune": true,
    # parallelism settings ( you will want to change these based on your cluster setup, ideally scheduling pipeline stages
    # across the node boundaries )
-   "pipe-parallel-size": 4,
-   "model-parallel-size": 2, # one copy of the model per node
+   "pipe-parallel-size": 1,
+   "model-parallel-size": 8, # one copy of the model per node
 
    # model settings
    "num-layers": 32,
