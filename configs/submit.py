@@ -16,10 +16,6 @@ export JOB_ID={{JOB_ID}}
 
 export CUDA_HOME=/usr/local/cuda-11.6
 
-export GPUS_PER_NODE=8
-export WORLD_SIZE=256
-export MASTER_PORT=9901
-
 netif=enp12s0
 export GLOO_SOCKET_IFNAME=${netif}
 export NCCL_SOCKET_IFNAME=${netif}
@@ -48,6 +44,11 @@ fi
 mamba activate neox
 git pull
 
+export GPUS_PER_NODE=8
+export NODE_SIZE={{NODE_SISE}}
+export WORLD_SIZE=$((${NODE_SIZE}*${GPUS_PER_NODE}))
+export MASTER_PORT=9901
+
 python ./deepy.py train.py  /var/cr01_data/gpt-neox-jue/configs/rp_7b_512_nodes_continue.yml /var/cr01_data/gpt-neox-jue/configs/rp_data_setup_test.yml
 
 '''
@@ -57,6 +58,7 @@ if __name__ == '__main__':
     job_id = str(uuid.uuid4())
     node_size = 8
     template = template.replace('{{JOB_ID}}', job_id)
+    template = template.replace('{{NODE_SIZE}}', node_size)
 
     with open('configs/train_to_submit.slurm.sh', 'w') as f:
         f.write(template)

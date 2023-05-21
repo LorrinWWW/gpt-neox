@@ -1,27 +1,26 @@
-
 # Suggested data paths when using GPT-NeoX locally
 {
-  # "data_path": "data/mydataset_text_document",
-  "train-data-paths": [
-      "/var/cr01_data/tokenized_data/arxiv/arxiv_tokenized_text_document"
-  ],
-  "train-data-weights": [
-      0.052
-  ],
+  "data_path": "data/mydataset_text_document",
+#   "train-data-paths": [
+#       "/var/cr01_data/tokenized_data/arxiv/arxiv_tokenized_text_document"
+#   ],
+#   "train-data-weights": [
+#       0.052
+#   ],
   
-  "test-data-paths": [
-      "/var/cr01_data/tokenized_data/arxiv/arxiv_tokenized_text_document"
-  ],
-  "test-data-weights": [
-      0.052
-  ],
+#   "test-data-paths": [
+#       "/var/cr01_data/tokenized_data/arxiv/arxiv_tokenized_text_document"
+#   ],
+#   "test-data-weights": [
+#       0.052
+#   ],
   
-  "valid-data-paths": [
-      "/var/cr01_data/tokenized_data/arxiv/arxiv_tokenized_text_document"
-  ],
-  "valid-data-weights": [
-      0.052
-  ],
+#   "valid-data-paths": [
+#       "/var/cr01_data/tokenized_data/arxiv/arxiv_tokenized_text_document"
+#   ],
+#   "valid-data-weights": [
+#       0.052
+#   ],
 
   # or for weighted datasets:
   # "train-data-paths": ["data/enwik8/enwik8_text_document", "data/enwik8/enwik8_text_document"],

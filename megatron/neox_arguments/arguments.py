@@ -183,7 +183,8 @@ class NeoXArgs(*BASE_CLASSES):
             
             os.environ["LOCAL_RANK"] = str(local_rank)
             os.environ["RANK"] = str(rank)
-            os.environ['WORLD_SIZE'] = "64"
+            if  'GLOBAL_WORLD_SIZE' in os.environ:
+                os.environ['WORLD_SIZE'] = os.environ['GLOBAL_WORLD_SIZE']
             os.environ['MASTER_ADDR'] = prime_ip
             
             print(f"RANK: {rank}, LOCAL_RANK: {local_rank}, WORLD_SIZE: {os.environ['WORLD_SIZE']}, PIP： {prime_ip}")
@@ -483,8 +484,9 @@ class NeoXArgs(*BASE_CLASSES):
             help="Only need this (at this stage) for autotuning",
         )
         args_parsed, _ = parser.parse_known_args()
-        with open(args_parsed.megatron_config) as jsonfile:
-            megatron_config = json.load(jsonfile)
+        # with open(args_parsed.megatron_config) as jsonfile:
+        #     megatron_config = json.load(jsonfile)
+        megatron_config = json.loads(args_parsed.megatron_config)
         if args_parsed.deepspeed_config is not None:
             overwrite_values = cls.set_up_autotuning(
                 args_parsed.deepspeed_config, overwrite_values
@@ -595,16 +597,18 @@ class NeoXArgs(*BASE_CLASSES):
             ).decode("utf-8")
             args_list.append(encoded_ds_config)
 
-        megatron_fp = cwd / Path("megatron_config.json")
+        # megatron_fp = cwd / Path("megatron_config.json")
         # get all config values
         args_list.append("--megatron_config")
-        args_list.append(str(megatron_fp))
+        # args_list.append(str(megatron_fp))
         neox_args = self.get_parent_class_value_dict(
             *self.__class__.__bases__, only_non_defaults=True
         )
-        if self.rank == 0:
-            with open(megatron_fp, mode="w") as megafile:
-                json.dump(neox_args, megafile)
+        # if self.rank == 0:
+        #     with open(megatron_fp, mode="w") as megafile:
+        #         json.dump(neox_args, megafile)
+        args_list.append(json.dumps(neox_args))
+        print(neox_args)
         return args_list
 
     ############################################################################################################################
